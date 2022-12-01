@@ -1,11 +1,7 @@
-import React from "react";
+import { TLink } from "../types/link.type";
 
 interface ILinkProps {
-  link: {
-    id: string;
-    description: string;
-    url: string;
-  };
+  link: TLink;
 }
 
 const Link = ({ link }: ILinkProps) => {
