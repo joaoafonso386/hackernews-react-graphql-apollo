@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "./Link";
-import { TLink } from "../types/link.type";
+import { ILink } from "../interfaces/link.interface";
 
 const LinkList = () => {
-  const linksToRender: TLink[] = [
+  const linksToRender: ILink[] = [
     {
       id: "link-id-1",
       description: "Prisma gives you a powerful database toolkit 😎",

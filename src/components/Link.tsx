@@ -1,7 +1,7 @@
-import { TLink } from "../types/link.type";
+import { ILink } from "../interfaces/link.interface";
 
 interface ILinkProps {
-  link: TLink;
+  link: ILink;
 }
 
 const Link = ({ link }: ILinkProps) => {
