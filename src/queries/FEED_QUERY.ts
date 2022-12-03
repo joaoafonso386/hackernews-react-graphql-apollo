@@ -1,15 +1,14 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 
-export const FEED_QUERY = gql`
-  {
-    feed {
+export const FEED_QUERY = gql(`
+query FeedQuery{
+  feed {
+    id
+    links {
       id
-      links {
-        id
-        createdAt
-        url
-        description
-      }
+      createdAt   
+      url
+      description
     }
   }
-`;
+} `);

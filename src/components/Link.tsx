@@ -1,4 +1,5 @@
 import { ILink } from "../interfaces/link.interface";
+import React from "react";
 
 interface ILinkProps {
   link: ILink;
