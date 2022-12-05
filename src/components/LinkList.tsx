@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "./Link";
 import { useQuery } from "@apollo/client";
 import { FEED_QUERY } from "../queries/FEED_QUERY";
@@ -8,7 +7,7 @@ const LinkList = () => {
 
   return (
     <div>
-      {data.feed.links.map((link) => (
+      {data?.feed.links.map((link) => (
         <Link key={link.id} link={link} />
       ))}
     </div>
