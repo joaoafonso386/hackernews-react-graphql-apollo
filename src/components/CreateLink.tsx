@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { FormState } from "../interfaces/CreateLink.form.interface";
 import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { CREATE_LINK_MUTATION } from "../graphql/mutations/CREATE_LINK_MUTATION";
 
 const CreateLink = () => {
@@ -9,12 +10,14 @@ const CreateLink = () => {
     description: "",
     url: "",
   });
+  const navigate = useNavigate();
   const { url, description } = formState;
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description,
       url,
     },
+    onCompleted: () => navigate("/"),
   });
 
   return (
