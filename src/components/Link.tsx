@@ -1,4 +1,4 @@
-import { ILink } from "../interfaces/link.interface";
+import { ILink } from "../interfaces/Link.link.interface";
 import React from "react";
 
 interface ILinkProps {
@@ -6,10 +6,12 @@ interface ILinkProps {
 }
 
 const Link = ({ link }: ILinkProps) => {
+  const { description } = link;
+
   return (
     <div>
       <div>
-        {link.description} ({link.url})
+        {description} ({link.url})
       </div>
     </div>
   );

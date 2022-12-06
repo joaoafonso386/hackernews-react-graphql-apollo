@@ -1,6 +1,6 @@
 import Link from "./Link";
 import { useQuery } from "@apollo/client";
-import { FEED_QUERY } from "../queries/FEED_QUERY";
+import { FEED_QUERY } from "../graphql/queries/FEED_QUERY";
 
 const LinkList = () => {
   const { data } = useQuery(FEED_QUERY);
