@@ -12,10 +12,13 @@ const Login = () => {
     password: "",
     name: "",
   });
+
+  const { loginFS, email, password, name } = formState;
+
   const [login] = useMutation(LOGIN_MUTATION, {
     variables: {
-      email: formState.email,
-      password: formState.password,
+      email: email,
+      password: password,
     },
     onCompleted: ({ login }) => {
       localStorage.setItem(AUTH_TOKEN, login?.token!);
@@ -25,9 +28,9 @@ const Login = () => {
 
   const [signup] = useMutation(SIGN_UP_MUTATION, {
     variables: {
-      name: formState.name,
-      email: formState.email,
-      password: formState.password,
+      name: name,
+      email: email,
+      password: password,
     },
     onCompleted: ({ signup }) => {
       localStorage.setItem(AUTH_TOKEN, signup?.token!);
@@ -37,11 +40,11 @@ const Login = () => {
 
   return (
     <div>
-      <h4 className="mv3">{formState.loginFS ? "Login" : "Sign Up"}</h4>
+      <h4 className="mv3">{loginFS ? "Login" : "Sign Up"}</h4>
       <div className="flex flex-column">
-        {!formState.loginFS && (
+        {!loginFS && (
           <input
-            value={formState.name}
+            value={name}
             onChange={(e) =>
               setFormState({
                 ...formState,
@@ -53,7 +56,7 @@ const Login = () => {
           />
         )}
         <input
-          value={formState.email}
+          value={email}
           onChange={(e) =>
             setFormState({
               ...formState,
@@ -64,7 +67,7 @@ const Login = () => {
           placeholder="Your email address"
         />
         <input
-          value={formState.password}
+          value={password}
           onChange={(e) =>
             setFormState({
               ...formState,
@@ -78,22 +81,20 @@ const Login = () => {
       <div className="flex mt3">
         <button
           className="pointer mr2 button"
-          onClick={() => (formState.loginFS ? login : signup)}
+          onClick={() => (loginFS ? login : signup)}
         >
-          {formState.loginFS ? "login" : "create account"}
+          {loginFS ? "login" : "create account"}
         </button>
         <button
           className="pointer button"
           onClick={(e) =>
             setFormState({
               ...formState,
-              loginFS: !formState.loginFS,
+              loginFS: !loginFS,
             })
           }
         >
-          {formState.loginFS
-            ? "need to create an account?"
-            : "already have an account?"}
+          {loginFS ? "need to create an account?" : "already have an account?"}
         </button>
       </div>
     </div>

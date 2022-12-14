@@ -16,7 +16,9 @@ const documents = {
     "\nmutation PostMutation($description: String!, $url: String!) {\n  post(description: $description, url: $url) {\n    id\n    createdAt\n    url\n    description\n  }\n}\n": types.PostMutationDocument,
     "\n  mutation LoginMutation(\n    $email: String!\n    $password: String!\n  ) {\n    login(email: $email, password: $password) {\n      token\n    }\n  }\n": types.LoginMutationDocument,
     "\n  mutation SignupMutation(\n    $email: String!\n    $password: String!\n    $name: String!\n  ) {\n    signup(\n      email: $email\n      password: $password\n      name: $name\n    ) {\n      token\n    }\n  }\n": types.SignupMutationDocument,
-    "\nquery FeedQuery {\n  feed {\n    id\n    links {\n      id\n      createdAt   \n      url\n      description\n    }\n  }\n} ": types.FeedQueryDocument,
+    "\n  mutation VoteMutation($linkId: ID!) {\n    vote(linkId: $linkId) {\n      id\n      link {\n        id\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n      user {\n        id\n      }\n    }\n  }\n": types.VoteMutationDocument,
+    "\nquery feed{\n  feed {\n    id\n    links {\n      id\n      createdAt\n      url\n      description\n      postedBy {\n        id\n        name\n      }\n      votes {\n        id\n        user {\n          id\n        }\n      }\n    }\n  }\n}": types.FeedDocument,
+    "\n  query feedSearch($filter: String!) {\n    feed(filter: $filter) {\n      id\n      links {\n        id\n        url\n        description\n        createdAt\n        postedBy {\n          id\n          name\n        }\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n    }\n  }\n": types.FeedSearchDocument,
 };
 
 /**
@@ -34,7 +36,15 @@ export function gql(source: "\n  mutation SignupMutation(\n    $email: String!\n
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery FeedQuery {\n  feed {\n    id\n    links {\n      id\n      createdAt   \n      url\n      description\n    }\n  }\n} "): (typeof documents)["\nquery FeedQuery {\n  feed {\n    id\n    links {\n      id\n      createdAt   \n      url\n      description\n    }\n  }\n} "];
+export function gql(source: "\n  mutation VoteMutation($linkId: ID!) {\n    vote(linkId: $linkId) {\n      id\n      link {\n        id\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n      user {\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation VoteMutation($linkId: ID!) {\n    vote(linkId: $linkId) {\n      id\n      link {\n        id\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n      user {\n        id\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery feed{\n  feed {\n    id\n    links {\n      id\n      createdAt\n      url\n      description\n      postedBy {\n        id\n        name\n      }\n      votes {\n        id\n        user {\n          id\n        }\n      }\n    }\n  }\n}"): (typeof documents)["\nquery feed{\n  feed {\n    id\n    links {\n      id\n      createdAt\n      url\n      description\n      postedBy {\n        id\n        name\n      }\n      votes {\n        id\n        user {\n          id\n        }\n      }\n    }\n  }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query feedSearch($filter: String!) {\n    feed(filter: $filter) {\n      id\n      links {\n        id\n        url\n        description\n        createdAt\n        postedBy {\n          id\n          name\n        }\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query feedSearch($filter: String!) {\n    feed(filter: $filter) {\n      id\n      links {\n        id\n        url\n        description\n        createdAt\n        postedBy {\n          id\n          name\n        }\n        votes {\n          id\n          user {\n            id\n          }\n        }\n      }\n    }\n  }\n"];
 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

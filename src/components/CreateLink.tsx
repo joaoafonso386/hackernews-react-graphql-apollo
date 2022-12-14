@@ -4,6 +4,7 @@ import { FormState } from "../interfaces/CreateLink.form.interface";
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { CREATE_LINK_MUTATION } from "../graphql/mutations/CREATE_LINK_MUTATION";
+import { FEED_QUERY } from "../graphql/queries/FEED_QUERY";
 
 const CreateLink = () => {
   const [formState, setFormState] = useState<FormState>({
@@ -14,8 +15,23 @@ const CreateLink = () => {
   const { url, description } = formState;
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
-      description,
-      url,
+      description: formState.description,
+      url: formState.url,
+    },
+    update: (cache, { data: post }) => {
+      const feed: any = cache.readQuery({
+        query: FEED_QUERY,
+      });
+
+      cache.writeQuery({
+        query: FEED_QUERY,
+        data: {
+          feed: {
+            id: "This is terrible technology part 2",
+            links: [post, ...feed?.feed.links],
+          },
+        },
+      });
     },
     onCompleted: () => navigate("/"),
   });
