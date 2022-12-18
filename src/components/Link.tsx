@@ -3,9 +3,15 @@ import { timeDifferenceForDate } from "../utils/utils";
 import { useMutation } from "@apollo/client";
 import { VOTE_MUTATION } from "../graphql/mutations/VOTE_MUTATION";
 import { FEED_QUERY } from "../graphql/queries/FEED_QUERY";
+import { LINKS_PER_PAGE } from "../constants";
 
 const Link = ({ link, index }) => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
+
+  const take = LINKS_PER_PAGE;
+  const skip = 0;
+  const orderBy: any = { createdAt: "desc" };
+
   const [vote] = useMutation(VOTE_MUTATION, {
     variables: {
       linkId: link.id,
@@ -13,6 +19,11 @@ const Link = ({ link, index }) => {
     update: (cache, { data }) => {
       const feed = cache.readQuery({
         query: FEED_QUERY,
+        variables: {
+          take,
+          skip,
+          orderBy,
+        },
       });
       const updatedLinks: any = feed?.feed.links.map((feedLink) => {
         if (feedLink.id === link.id) {
@@ -29,7 +40,13 @@ const Link = ({ link, index }) => {
           feed: {
             id: "This is terrible technology",
             links: updatedLinks,
+            count: 2,
           },
+        },
+        variables: {
+          take,
+          skip,
+          orderBy,
         },
       });
     },

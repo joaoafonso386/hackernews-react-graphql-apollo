@@ -29,6 +29,7 @@ const CreateLink = () => {
           feed: {
             id: "This is terrible technology part 2",
             links: [post, ...feed?.feed.links],
+            count: 1,
           },
         },
       });

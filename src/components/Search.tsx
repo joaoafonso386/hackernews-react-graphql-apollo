@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { gql } from "../__generated__";
 import Link from "./Link";
 import { FEED_SEARCH_QUERY } from "../graphql/queries/FEED_SEARCH_QUERY";
 
